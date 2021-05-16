@@ -70,7 +70,7 @@ function Row({ title, fetchUrl, isLargeRow }) {
                         key={movie.id}
                         // onClick={() => handleClick(movie)}
                         className={`row_poster ${isLargeRow && "row_posterLarge"}`}
-                        src={`${base_url}${isLargeRow ? movie.poster_path : movie.backdrop_path}` || <Skeleton width={100} duration={5} />}
+                        src={`${base_url}${isLargeRow ? movie.poster_path : movie.backdrop_path}` || <Skeleton width={100} height={150} duration={5} />}
                         alt={movie.name} /></>
                 })}
             </div>
