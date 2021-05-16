@@ -137,13 +137,16 @@ footer {
   color: #fff;
   padding: 20px;
   clear: both;
+  /* min-height: 100vh; */
+  /* min-width: 400px;
+  max-width: 100vh; */
   /* position: relative; */
   align-self: end;
   /* margin-top: -200px; */
   /* position: absolute; */
   /* margin-top: auto; */
   bottom: 0;
-  width: 100%;
+  
   /* position: fixed;
   z-index: 1; */
 }
@@ -153,3 +156,10 @@ footer {
   height: '50px';
   width:'50px'
 } */
+
+@media only screen and (max-width: 600px) {
+  .login .loginContainer {
+    width: 100%;
+    /* width: 100%; */
+  }
+}

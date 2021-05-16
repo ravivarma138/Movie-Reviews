@@ -31,6 +31,19 @@
   border-radius: 10px;
   cursor: pointer;
 }
+
+.loader {
+  width: 100px;
+	height: 100px;
+	filter: blur(0);
+	position: absolute;
+	top:0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+  	
+	margin: auto;
+}
   
   .row_poster {
     object-fit: contain;
@@ -60,6 +73,10 @@
       
       .row_posterLarge {
         max-height: 150px;
+      }
+
+      .loader {
+        
       }
     }
 
