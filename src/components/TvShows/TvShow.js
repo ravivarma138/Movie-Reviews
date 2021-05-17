@@ -42,7 +42,7 @@ function TvShow() {
     ) :
         (
             <Container>
-                <span className="pageTitle">Trending Today</span>
+                <span className="pageTitle">Tv Shows</span>
                 <div className="tvShow">
                     {content &&
                         content.map((c) => (
