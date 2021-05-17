@@ -16,7 +16,7 @@ const Dashboard = (props) => {
       <Row title="Top Rated Tv Series" isLargeRow fetchUrl={requests.fetchTopRatedTv} />
       <Row title="Documentaries" isLargeRow fetchUrl={requests.fetchDocumentaries} />
       <Row title="Upcoming Movies" isLargeRow fetchUrl={requests.fetchUpcominMovies} />
-      <ScrollUpButton />
+      
     </div>
   )
 }

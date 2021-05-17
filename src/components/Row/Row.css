@@ -1,6 +1,7 @@
 .row {
     color: #fff;
     margin-left: 20px;
+    
   }
 
   h2 {
@@ -32,14 +33,7 @@
   cursor: pointer;
 }
 
-.loader {
-  position: absolute;
-    top: 50%;
-    left: 50%;
-    -moz-transform: translateX(-50%) translateY(-50%);
-    -webkit-transform: translateX(-50%) translateY(-50%);
-    transform: translateX(-50%) translateY(-50%);
-}
+
   
   .row_poster {
     object-fit: contain;

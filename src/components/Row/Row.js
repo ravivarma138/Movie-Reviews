@@ -20,7 +20,7 @@ function Row({ title, fetchUrl, isLargeRow }) {
             await axios.get(fetchUrl).then(result => {
                 console.log(result.data);
                 setMovies(result.data.results);
-                let timer1 = setTimeout(() => isLoading(false), 5 * 1000);
+                let timer1 = setTimeout(() => isLoading(false), 2.5 * 1000);
                 // isLoading(false);
                 // clearTimeout(timer1);
             })

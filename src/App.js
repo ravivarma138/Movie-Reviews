@@ -7,6 +7,7 @@ import StyledFirebaseAuth from 'firebaseui'
 import Header from './components/Header'
 import React, { useState, useEffect } from 'react';
 import Login from './components/Login';
+import {CircleArrow as ScrollUpButton} from "react-scroll-up-button";
 import Dashboard from './components/Dashboard';
 import Sidebar from './components/header/Sidebar';
 import LogOut from './components/LogOut';
@@ -16,6 +17,9 @@ import {UseDarkMode} from './styles/UseDarkMode'
 import IdleTimerContainer from './components/IdleTimerContainer';
 import { Toggle } from './components/Toggle';
 import { GlobalStyles,lightTheme, darkTheme } from './styles/GlobalStyles';
+import Trending from './components/Trending/Trending';
+import Movie from './components/Movies/Movie';
+import TvShow from './components/TvShows/TvShow';
 
 
 
@@ -119,12 +123,15 @@ function App() {
           <Switch>
             <Route path='/dashboard' exact component={Dashboard} />
             <Route path='/logout' exact component={LogOut} />
-            {/* <Route path='/trending' exact component={Reports} />
-            <Route path='/reports/reports1' exact component={ReportsOne} />
+            <Route path='/trending' exact component={Trending}/>
+            <Route path='/movies' exact component={Movie}/>
+            <Route path='/tvshows' exact component={TvShow}/>
+            {/* <Route path='/reports/reports1' exact component={ReportsOne} />
             <Route path='/reports/reports2' exact component={ReportsTwo} />
             <Route path='/reports/reports3' exact component={ReportsThree} />
             <Route path='/team' exact component={Team} /> */}
           </Switch>
+          <ScrollUpButton />
           <Footer/>
           <IdleTimerContainer/>
         </Router>
