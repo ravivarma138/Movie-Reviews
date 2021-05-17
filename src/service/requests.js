@@ -1,4 +1,4 @@
-const API_KEY = process.env.REACT_APP_API_KEY
+const API_KEY = '7a03913b0b1f27273becfdbdf25d200d'
 
 const requests = {
 	fetchNowPlaying:`/movie/now_playing?api_key=${API_KEY}&language=en-US`,
