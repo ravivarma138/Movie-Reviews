@@ -32,6 +32,7 @@ export default function CustomPagination({setPage, numOfPages}) {
                   hideNextButton
                   hidePrevButton
                 />
+                <br/><br/>
         </div>
     );
 }

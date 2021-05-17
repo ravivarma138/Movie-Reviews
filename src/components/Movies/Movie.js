@@ -6,7 +6,8 @@ import { CircleLoader } from "react-awesome-loaders";
 import CustomPagination from '../CustomPagination';
 import SingleContent from '../SingleContent/SingleContent'
 import { Container } from "@material-ui/core";
-
+import Genres from '../Genres';
+import useGenre from "../../hooks/useGenre";
 const fetchUrl = requests.fetchAllMovies;
 
 function Movie() {
@@ -15,11 +16,14 @@ function Movie() {
     const [content, setContent] = useState([]);
     const [loading, isLoading] = useState(true);
     const [numOfPages, setNumOfPages] = useState();
+    const [genres, setGenres] = useState([]);
+    const [selectedGenres, setSelectedGenres] = useState([]);
+    const genreforURL = useGenre(selectedGenres);
 
     useEffect(() => {
 
         async function fetchData() {
-            await axios.get(fetchUrl + `&page=${page}`).then(result => {
+            await axios.get(fetchUrl + `&language=en-US&sort_by=popularity.desc&page=${page}&with_genres=${genreforURL}`).then(result => {
                 console.log('Trending ddddr is' + result.data.results);
                 setContent(result.data.results);
                 setNumOfPages(result.data.total_pages)
@@ -29,22 +33,30 @@ function Movie() {
             })
         }
         fetchData();
-    }, [fetchUrl, page]);
+    }, [genreforURL, page]);
 
     return loading ? (
         <div className="loader">
             <CircleLoader
-        meshColor={"#6366F1"}
-        lightColor={"#E0E7FF"}
-        duration={1.5}
-        desktopSize={"90px"}
-        mobileSize={"64px"}
-      />
+                meshColor={"#6366F1"}
+                lightColor={"#E0E7FF"}
+                duration={1.5}
+                desktopSize={"90px"}
+                mobileSize={"64px"}
+            />
         </div>
     ) :
         (
             <Container>
                 <span className="pageTitle">Movies</span>
+                <Genres
+                    type="movie"
+                    selectedGenres={selectedGenres}
+                    setSelectedGenres={setSelectedGenres}
+                    genres={genres}
+                    setGenres={setGenres}
+                    setPage={setPage}
+                />
                 <div className="movie">
                     {content &&
                         content.map((c) => (
@@ -58,7 +70,7 @@ function Movie() {
                                 vote_average={c.vote_average}
                             />
                         ))}
-                        {/* <Row title="Trending" isLargeRow fetchUrl={requests.fetchTrending} /> */}
+                    {/* <Row title="Trending" isLargeRow fetchUrl={requests.fetchTrending} /> */}
                 </div>
                 <CustomPagination setPage={setPage} numOfPages={numOfPages} />
             </Container>

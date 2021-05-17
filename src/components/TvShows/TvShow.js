@@ -6,6 +6,8 @@ import { ThreeDLoader } from "react-awesome-loaders";
 import CustomPagination from '../CustomPagination';
 import SingleContent from '../SingleContent/SingleContent'
 import { Container } from "@material-ui/core";
+import Genres from '../Genres';
+import useGenre from "../../hooks/useGenre";
 
 const fetchUrl = requests.fetchAllTvShows;
 
@@ -15,11 +17,14 @@ function TvShow() {
     const [content, setContent] = useState([]);
     const [loading, isLoading] = useState(true);
     const [numOfPages, setNumOfPages] = useState();
+    const [genres, setGenres] = useState([]);
+    const [selectedGenres, setSelectedGenres] = useState([]);
+    const genreforURL = useGenre(selectedGenres);
 
     useEffect(() => {
 
         async function fetchData() {
-            await axios.get(fetchUrl + `&page=${page}`).then(result => {
+            await axios.get(fetchUrl + `&language=en-US&sort_by=popularity.desc&page=${page}&with_genres=${genreforURL}`).then(result => {
                 console.log('Trending ddddr is' + result.data.results);
                 setContent(result.data.results);
                 setNumOfPages(result.data.total_pages)
@@ -29,7 +34,7 @@ function TvShow() {
             })
         }
         fetchData();
-    }, [fetchUrl, page]);
+    }, [genreforURL, page]);
 
     return loading ? (
         <div className="loader">
@@ -43,6 +48,14 @@ function TvShow() {
         (
             <Container>
                 <span className="pageTitle">Tv Shows</span>
+                <Genres
+                    type="tv"
+                    selectedGenres={selectedGenres}
+                    setSelectedGenres={setSelectedGenres}
+                    genres={genres}
+                    setGenres={setGenres}
+                    setPage={setPage}
+                />
                 <div className="tvShow">
                     {content &&
                         content.map((c) => (

@@ -43,6 +43,8 @@ button {
   }
 }
 
+
+
 .login {
   width: 100%;
   min-height: 100vh;
@@ -183,9 +185,9 @@ footer {
   width:'50px'
 } */
 
-@media only screen and (max-width: 600px) {
+@media screen and (max-width: 600px) {
   .login .loginContainer {
-    width: 100%;
+    width: 100vh;
     /* width: 100%; */
   }
 }
