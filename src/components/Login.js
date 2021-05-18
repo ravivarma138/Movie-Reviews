@@ -57,7 +57,7 @@ const Login = (props) => {
                     onChange={(e) => setEmail(e.target.value)}
                 />
                 <p className="errorMsg">{emailError}</p>
-                <label>password</label>
+                <label>Password</label>
                 <input
                     type="password"
                     autoFocus

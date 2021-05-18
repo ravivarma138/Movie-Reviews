@@ -30,25 +30,25 @@ export const SidebarData = [
   },
   {
     title: 'Search',
-    path: '/search/movies',
+    path: '/search',
     icon: <RiIcons.RiSearchLine />,
-    iconClosed: <RiIcons.RiArrowDownSFill />,
-    iconOpened: <RiIcons.RiArrowUpSFill />,
+    // iconClosed: <RiIcons.RiArrowDownSFill />,
+    // iconOpened: <RiIcons.RiArrowUpSFill />,
 
-    subNav: [
-      {
-        title: 'Search Movies',
-        path: '/search/movies',
-        icon: <RiIcons.RiSearchFill />,
-        cName: 'sub-nav'
-      },
-      {
-        title: 'Search Tv Shows',
-        path: '/search/tvshows',
-        icon: <RiIcons.RiSearchFill />,
-        cName: 'sub-nav'
-      },
-    ]
+    // subNav: [
+    //   {
+    //     title: 'Search Movies',
+    //     path: '/search/movies',
+    //     icon: <RiIcons.RiSearchFill />,
+    //     cName: 'sub-nav'
+    //   },
+    //   {
+    //     title: 'Search Tv Shows',
+    //     path: '/search/tvshows',
+    //     icon: <RiIcons.RiSearchFill />,
+    //     cName: 'sub-nav'
+    //   },
+    // ]
   },
   {
     title: 'Favourites',

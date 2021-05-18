@@ -20,6 +20,7 @@ import { GlobalStyles,lightTheme, darkTheme } from './styles/GlobalStyles';
 import Trending from './components/Trending/Trending';
 import Movie from './components/Movies/Movie';
 import TvShow from './components/TvShows/TvShow';
+import Search from './components/Search/Search';
 
 
 
@@ -126,6 +127,7 @@ function App() {
             <Route path='/trending' exact component={Trending}/>
             <Route path='/movies' exact component={Movie}/>
             <Route path='/tvshows' exact component={TvShow}/>
+            <Route path='/search' exact component={Search}/>
             {/* <Route path='/reports/reports1' exact component={ReportsOne} />
             <Route path='/reports/reports2' exact component={ReportsTwo} />
             <Route path='/reports/reports3' exact component={ReportsThree} />
