@@ -21,6 +21,7 @@ import Trending from './components/Trending/Trending';
 import Movie from './components/Movies/Movie';
 import TvShow from './components/TvShows/TvShow';
 import Search from './components/Search/Search';
+import Favourites from './components/Favourites/Favourites';
 
 
 
@@ -128,6 +129,7 @@ function App() {
             <Route path='/movies' exact component={Movie}/>
             <Route path='/tvshows' exact component={TvShow}/>
             <Route path='/search' exact component={Search}/>
+            <Route path='/favourites' exact component={Favourites}/>
             {/* <Route path='/reports/reports1' exact component={ReportsOne} />
             <Route path='/reports/reports2' exact component={ReportsTwo} />
             <Route path='/reports/reports3' exact component={ReportsThree} />
