@@ -21,8 +21,8 @@ const Login = (props) => {
     const imgStyle = {
         display: "block",
         margin: "0 auto",
-        marginRight:"auto",
-        marginLeft:"auto",
+        maxWidth:'100%',
+        height:'auto',
         height: '250px',
         width:'250px',
     }

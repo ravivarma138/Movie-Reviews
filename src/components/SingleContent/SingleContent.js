@@ -39,7 +39,8 @@ const SingleContent = ({
       >
     <img
         className="poster1"
-        src={poster ? `${requests.img_300}${poster}` : requests.unavailable}
+        onError="this.onError=null;this.src='https://placeimg.com/200/300/animals';"
+        src={poster ? `${requests.img_300}${poster}`: requests.unavailable}
         alt={title}
       />
       </Badge>

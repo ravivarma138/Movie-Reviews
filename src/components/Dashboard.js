@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import { CircleArrow as ScrollUpButton } from "react-scroll-up-button";
 import Header from './Header';
 import Row from './Row/Row';
@@ -7,6 +7,10 @@ import RBCarousel from 'react-bootstrap-carousel';
 import HomeCarousel from './HomeCarousel';
 const Dashboard = (props) => {
   const { handleLogOut } = props;
+
+  useEffect(() => {
+    window.scroll(0,0);
+}, []);
   return (
     <div>
       {/* <HomeCarousel fetchUrl={requests.fetchNowPlaying} /> */}
