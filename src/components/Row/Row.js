@@ -9,6 +9,7 @@ import Skeleton from 'react-loading-skeleton';
 const base_url = "https://image.tmdb.org/t/p/original";
 
 
+
 function Row({ title, fetchUrl, isLargeRow }) {
     const [movies, setMovies] = useState([]);
     const [trailerUrl, setTrailerUrl] = useState("");
@@ -24,6 +25,8 @@ function Row({ title, fetchUrl, isLargeRow }) {
                 // isLoading(false);
                 // clearTimeout(timer1);
             })
+
+            console.log('Row values are',movies);
         }
         fetchData();
     }, [fetchUrl]);

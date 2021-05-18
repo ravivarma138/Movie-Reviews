@@ -2,7 +2,7 @@ import { Badge } from "@material-ui/core";
 // import { img_300, unavailable } from "../../config/config";
 import requests from '../../service/requests';
 import "./SingleContent.css";
-// import ContentModal from "../ContentModal/ContentModal";
+import ContentModal from "../ContentModel/ContentModel";
 
 const SingleContent = ({
   id,
@@ -32,6 +32,7 @@ const SingleContent = ({
       
     // {/* </ContentModal> */}
     // </div>
+    <ContentModal media_type={media_type} id={id}>
     <div className="media">
     <Badge
         badgeContent={vote_average? vote_average:'NA'}
@@ -45,6 +46,7 @@ const SingleContent = ({
       </Badge>
       <b className="title">{title}</b>
     </div>
+    </ContentModal>
   );
 };
 

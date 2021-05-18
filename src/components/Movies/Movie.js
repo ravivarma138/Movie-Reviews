@@ -24,13 +24,14 @@ function Movie() {
 
         async function fetchData() {
             await axios.get(fetchUrl + `&language=en-US&sort_by=popularity.desc&page=${page}&with_genres=${genreforURL}`).then(result => {
-                console.log('Trending ddddr is' + result.data.results);
+                console.log('Trending ddddr is' + result.data.results.id);
                 setContent(result.data.results);
                 setNumOfPages(result.data.total_pages)
                 let timer1 = setTimeout(() => isLoading(false), 2.5 * 1000);
                 // isLoading(false);
                 // clearTimeout(timer1);
             })
+            console.log('content is...',content);
         }
         fetchData();
     }, [genreforURL, page]);
@@ -66,7 +67,7 @@ function Movie() {
                                 poster={c.poster_path}
                                 title={c.title || c.name}
                                 date={c.first_air_date || c.release_date}
-                                media_type={c.media_type}
+                                media_type="movie"
                                 vote_average={c.vote_average}
                             />
                         ))}

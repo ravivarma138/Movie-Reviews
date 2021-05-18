@@ -15,6 +15,7 @@
     "firebaseui": "^4.8.0",
     "movie-trailer": "^2.1.0",
     "react": "^17.0.2",
+    "react-alice-carousel": "^2.5.1",
     "react-awesome-loaders": "^0.1.37",
     "react-bootstrap": "^1.6.0",
     "react-bootstrap-carousel": "^4.1.1",
