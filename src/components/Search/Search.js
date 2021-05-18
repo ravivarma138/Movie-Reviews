@@ -15,7 +15,7 @@ import axios from "../axios";
 import CustomPagination from "../CustomPagination";
 import SingleContent from "../SingleContent/SingleContent";
 import { Container } from "@material-ui/core";
-
+import requests from '../../service/requests';
 const useStyles = makeStyles({
     root: {
         background: "white",
@@ -65,8 +65,7 @@ const Search = () => {
         if (searchText.length > 0) {
             try {
                 const { data } = await axios.get(
-                    `/search/${type ? "tv" : "movie"}?api_key=${process.env.REACT_APP_API_KEY
-                    }&language=en-US&query=${searchText}&page=${page}&include_adult=false`
+                    `/search/${type ? "tv" : "movie"}?api_key=${requests.api}&language=en-US&query=${searchText}&page=${page}&include_adult=false`
                 );
                 setContent(data.results);
                 console.log(data.results.length);
