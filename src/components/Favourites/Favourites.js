@@ -1,58 +1,69 @@
-import React,{useEffect,useState} from 'react'
-import Button from '@material-ui/core/Button';
-import Snackbar from '@material-ui/core/Snackbar';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
+import React, { useEffect, useState } from 'react'
+import { Container } from "@material-ui/core";
+import { SunspotLoader } from "react-awesome-loaders";
+import SingleContent from '../SingleContent/SingleContent'
+import "./Favourites.css";
 import fire from '../../fire'
 function Favourites() {
 
-    const [open, setOpen] = useState(false);
-    const [favourites, setFavourites] = useState(null);
+  const [loading, isLoading] = useState(true);
+  const [content, setContent] = useState([]);
 
-    useEffect(() => {
-        handleClick();
-        favouriteRealTime();
-      }, []);
+  const fetchFavourites = async () => {
+    const favouriteArray = fire.database().ref('Favourites');
+    favouriteArray.on('value', (snapshot) => {
+      console.log(snapshot.val());
+      const favourites = snapshot.val();
 
-  const favouriteRealTime = () => {
-    const ref = fire.database().ref(``)
-  }
+      const favFinalList = [];
 
-  const handleClick = () => {
-    setOpen(true);
+      for (let id in favourites) {
+        favFinalList.push({id,...favourites[id]});
+      }
+
+      console.log('favFinalList',favFinalList);
+      setContent(favFinalList);
+    })
+
   };
 
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
+  useEffect(() => {
 
-    setOpen(false);
-  };
-    return (
-        <div>
-            <Snackbar
-            anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'middle',
-              }}
-              open={open}
-              autoHideDuration={6000}
-              onClose={handleClose}
-                message="Feature Yet to be Added, Sry for the delay"
-                action={
-                    <React.Fragment>
-                      <Button color="secondary" size="small" onClick={handleClose}>
-                        UNDO
-                      </Button>
-                      <IconButton size="small" aria-label="close" color="inherit" onClick={handleClose}>
-                        <CloseIcon fontSize="small" />
-                      </IconButton>
-                    </React.Fragment>
-                  }
-            />
-        </div>
+    let timer1 = setTimeout(() => isLoading(false), 2.5 * 1000);
+    fetchFavourites();
+  }, []);
+
+  return loading ? (
+    <div className="loader">
+      <SunspotLoader
+        gradientColors={["#6366F1", "#E0E7FF"]}
+        shadowColor={"#3730A3"}
+        desktopSize={"128px"}
+        mobileSize={"100px"}
+      />
+    </div>
+  ) :
+    (
+      <Container>
+        <span className="pageTitle">Favourites</span>
+        <div className="favourite">
+                    {content &&
+                        content.map((c) => (
+                            <SingleContent
+                                key={c.id}
+                                id={c.mtvId}
+                                poster={c.poster}
+                                title={c.title}
+                                date={c.date}
+                                media_type={c.media_type}
+                                vote_average={c.vote}
+                            />
+                        ))}
+                    {/* <Row title="Trending" isLargeRow fetchUrl={requests.fetchTrending} /> */}
+                </div>
+      </Container>
     )
+
 }
 
 export default Favourites

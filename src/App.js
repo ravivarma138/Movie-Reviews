@@ -97,12 +97,17 @@ function App() {
   const authListener = () => {
     fire.auth().onAuthStateChanged(user => {
       if (user) {
+        console.log('current user is',fire.auth().currentUser.displayName);
+        console.log('current user email is',fire.auth().currentUser.email);
+        console.log('current user id is',fire.auth().currentUser.uid);
+        localStorage.setItem('uid',fire.auth().currentUser.uid);
         clearInputs();
         setUser(user);
       } else {
         setUser("");
       }
     })
+
   }
 
   useEffect(() => {

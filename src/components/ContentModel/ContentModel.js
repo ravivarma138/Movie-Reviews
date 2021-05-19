@@ -15,9 +15,9 @@ import FavoriteOutlinedIcon from '@material-ui/icons/FavoriteOutlined';
 import Tooltip from '@material-ui/core/Tooltip';
 import Chip from '@material-ui/core/Chip';
 import ReactPlayer from 'react-player';
-import Badge from '@material-ui/core/Badge';
 import ReactStars from "react-rating-stars-component";
-import Rating from 'react-rating'
+import fire from '../../fire'
+import Favourites from "../Favourites/Favourites";
 const useStyles = makeStyles((theme) => ({
   modal: {
     display: "flex",
@@ -37,12 +37,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
 export default function ContentModel({ children, media_type, id }) {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [content, setContent] = useState();
   const [video, setVideo] = useState();
   const [toggleHeart, setToggleHeart] = useState(false);
+  const uid = localStorage.getItem('uid');
+  const [favouriteId, setFavouriteId] = useState();
   const handleOpen = () => {
     setOpen(true);
   };
@@ -52,6 +55,26 @@ export default function ContentModel({ children, media_type, id }) {
   };
 
   const changeHeartFlag = () => {
+    const fireBaseConnect = fire.database().ref('Favourites');
+    if (toggleHeart) {
+      const rem = fireBaseConnect.child(favouriteId);
+      rem.remove();
+      console.log('Remove selected');
+    } else {
+      const sendToFire = {
+        userId: uid,
+        mtvId: id,
+        poster: content.poster_path,
+        title: content.title || content.name,
+        date: content.first_air_date || content.release_date,
+        media_type: media_type,
+        vote: content.vote_average
+      };
+
+      console.log('Sending this to fire', sendToFire);
+      fireBaseConnect.push(sendToFire);
+
+    }
     setToggleHeart(!toggleHeart);
   }
 
@@ -66,6 +89,35 @@ export default function ContentModel({ children, media_type, id }) {
     // console.log(data);
   };
 
+  const fetchFavourite = async () => {
+    const favouriteArray = fire.database().ref('Favourites');
+    favouriteArray.on('value', (snapshot) => {
+      console.log(snapshot.val());
+      const favourites = snapshot.val();
+
+      const favFinalList = [];
+
+      for (let id in favourites) {
+        favFinalList.push({id,...favourites[id]});
+      }
+
+      console.log('favFinalList',favFinalList);
+
+      favFinalList.map(favs => {
+        console.log('userId from firebase ddd', favs.userId)
+        if (favs.userId === uid && favs.mtvId === id && favs.media_type === media_type) {
+          // setMovieId(favs.movieId);
+          setToggleHeart(true);
+          setFavouriteId(favs.id);
+          // setType(favs.type);
+        }
+      })
+    })
+
+  };
+
+
+
   const fetchVideo = async () => {
     const { data } = await axios.get(
       `https://api.themoviedb.org/3/${media_type}/${id}/videos?api_key=${requests.api}&language=en-US`
@@ -77,36 +129,11 @@ export default function ContentModel({ children, media_type, id }) {
   useEffect(() => {
     fetchData();
     fetchVideo();
+    fetchFavourite();
     // eslint-disable-next-line
   }, []);
 
-  const MoviePalyerModal = () => {
-    const youtubeUrl = "https://www.youtube.com/watch?v=";
-    return (
-      <Modal
-        size="lg"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-      >
-        <Modal.Header closeButton>
-          <Modal.Title
-            id="contained-modal-title-vcenter"
-            style={{ color: "#000000", fontWeight: "bolder" }}
-          >
-            {content.title}
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body style={{ backgroundColor: "#000000" }}>
-          <ReactPlayer
-            className="container-fluid"
-            url={youtubeUrl + video}
-            playing
-            width="100%"
-          ></ReactPlayer>
-        </Modal.Body>
-      </Modal>
-    );
-  };
+
 
   return (
     <>
@@ -202,7 +229,7 @@ export default function ContentModel({ children, media_type, id }) {
                     }</span>
                     <span>Censor: {content.adult ? 'A' : 'U/A'}</span>
                   </div>
-                  
+
 
                   <div style={{ display: 'flex', flexDirection: 'row', marginTop: '9px', marginBottom: '10px' }}>
                     <span>Rating: {content.vote_average}</span>
@@ -232,7 +259,7 @@ export default function ContentModel({ children, media_type, id }) {
                     Watch the Trailer
                   </Button> */}
 
-                  <ReactPlayer url={`https://www.youtube.com/watch?v=${video}`} controls='true'  width="100%">
+                  <ReactPlayer url={`https://www.youtube.com/watch?v=${video}`} controls={true} width="100%">
                   </ReactPlayer>
 
                   {/* <div>
