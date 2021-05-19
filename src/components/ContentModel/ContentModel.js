@@ -232,7 +232,7 @@ export default function ContentModel({ children, media_type, id }) {
                     Watch the Trailer
                   </Button> */}
 
-                  <ReactPlayer url={`https://www.youtube.com/watch?v=${video}`}  width="100%">
+                  <ReactPlayer url={`https://www.youtube.com/watch?v=${video}`} controls='true'  width="100%">
                   </ReactPlayer>
 
                   {/* <div>
