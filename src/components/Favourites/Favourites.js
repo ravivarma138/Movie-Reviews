@@ -18,10 +18,13 @@ function Favourites() {
       const favFinalList = [];
 
       for (let id in favourites) {
-        favFinalList.push({id,...favourites[id]});
+        console.log('id of userid is',id)
+        if (favourites[id].userId == localStorage.getItem('uid')) {
+          favFinalList.push({ id, ...favourites[id] });
+        }
       }
 
-      console.log('favFinalList',favFinalList);
+      console.log('favFinalList', favFinalList);
       setContent(favFinalList);
     })
 
@@ -47,20 +50,22 @@ function Favourites() {
       <Container>
         <span className="pageTitle">Favourites</span>
         <div className="favourite">
-                    {content &&
-                        content.map((c) => (
-                            <SingleContent
-                                key={c.id}
-                                id={c.mtvId}
-                                poster={c.poster}
-                                title={c.title}
-                                date={c.date}
-                                media_type={c.media_type}
-                                vote_average={c.vote}
-                            />
-                        ))}
-                    {/* <Row title="Trending" isLargeRow fetchUrl={requests.fetchTrending} /> */}
-                </div>
+          {content &&
+            content.map((c) => (
+              <SingleContent
+                key={c.id}
+                id={c.mtvId}
+                poster={c.poster}
+                title={c.title}
+                date={c.date}
+                media_type={c.media_type}
+                vote_average={c.vote}
+              />
+            ))}
+
+            {content.length === 0 && <div><br/><br/><br/><h2>No Favourites Added!</h2></div>}
+          {/* <Row title="Trending" isLargeRow fetchUrl={requests.fetchTrending} /> */}
+        </div>
       </Container>
     )
 
