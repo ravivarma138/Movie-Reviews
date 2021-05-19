@@ -1,16 +1,22 @@
-import React,{useEffect} from 'react'
+import React,{useEffect,useState} from 'react'
 import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
-
+import fire from '../../fire'
 function Favourites() {
 
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
+    const [favourites, setFavourites] = useState(null);
 
     useEffect(() => {
         handleClick();
+        favouriteRealTime();
       }, []);
+
+  const favouriteRealTime = () => {
+    const ref = fire.database().ref(``)
+  }
 
   const handleClick = () => {
     setOpen(true);

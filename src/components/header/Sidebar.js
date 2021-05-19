@@ -64,7 +64,7 @@ const Sidebar = (props) => {
               <AiIcons.AiOutlineClose onClick={showSidebar} />
             </NavIcon>
             {SidebarData.map((item, index) => {
-              return <SubMenu onClick={item.onclick} item={item} key={index} />;
+              return <SubMenu close={showSidebar} onClick={showSidebar} item={item} key={index} />;
             })}
             {/* <button onClick={handleLogOut}><BiIcons.BiLogOut /> LogOut</button> */}
           </SidebarWrap>
