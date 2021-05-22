@@ -6,14 +6,19 @@ import Fade from "@material-ui/core/Fade";
 import axios from 'axios';
 import requests from '../../service/requests';
 import "./ContentModel.css";
+import Popover from '@material-ui/core/Popover';
+import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
-import { Button } from "@material-ui/core";
+import { Button, IconButton } from "@material-ui/core";
+import DescriptionIcon from '@material-ui/icons/Description';
+import CommentIcon from '@material-ui/icons/Comment';
 import YouTubeIcon from "@material-ui/icons/YouTube";
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import Carousel from "../Carousel/Carousel";
 import FavoriteOutlinedIcon from '@material-ui/icons/FavoriteOutlined';
 import Tooltip from '@material-ui/core/Tooltip';
 import Chip from '@material-ui/core/Chip';
+import Comments from '../Comments/Comments'
 import ReactPlayer from 'react-player';
 import ReactStars from "react-rating-stars-component";
 import fire from '../../fire'
@@ -35,6 +40,15 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing(1, 1, 3),
   },
+  popover: {
+    pointerEvents: 'none',
+  },
+  paper1: {
+    padding: theme.spacing(1),
+    backgroundColor: "black",
+    color: "white",
+    maxWidth:'90%'
+  },
 }));
 
 
@@ -44,14 +58,30 @@ export default function ContentModel({ children, media_type, id }) {
   const [content, setContent] = useState();
   const [video, setVideo] = useState();
   const [toggleHeart, setToggleHeart] = useState(false);
-  const uid = localStorage.getItem('uid');
+  const uid = fire.auth().currentUser.uid;
   const [favouriteId, setFavouriteId] = useState();
+  const [toggleComments, setToggleComments] = useState(true);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const popOpen = Boolean(anchorEl);
   const handleOpen = () => {
     setOpen(true);
   };
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const changeCommentFlag = () => {
+    setToggleComments(!toggleComments);
+    console.log('Comments', toggleComments);
+  }
+
+  const handlePopoverOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handlePopoverClose = () => {
+    setAnchorEl(null);
   };
 
   const changeHeartFlag = () => {
@@ -98,10 +128,10 @@ export default function ContentModel({ children, media_type, id }) {
       const favFinalList = [];
 
       for (let id in favourites) {
-        favFinalList.push({id,...favourites[id]});
+        favFinalList.push({ id, ...favourites[id] });
       }
 
-      console.log('favFinalList',favFinalList);
+      console.log('favFinalList', favFinalList);
 
       favFinalList.map(favs => {
         console.log('userId from firebase ddd', favs.userId)
@@ -227,7 +257,41 @@ export default function ContentModel({ children, media_type, id }) {
                         </div>
                       )
                     }</span>
+                  </div>
+
+                  <div class="d-flex justify-content-between">
                     <span>Censor: {content.adult ? 'A' : 'U/A'}</span>
+                    <span>
+                      <Typography
+                        aria-owns={popOpen ? 'mouse-over-popover' : undefined}
+                        aria-haspopup="true"
+                        onMouseEnter={handlePopoverOpen}
+                        onMouseLeave={handlePopoverClose}
+                      >
+                        Description: <DescriptionIcon color='primary' />
+                      </Typography>
+                      <Popover
+                        id="mouse-over-popover"
+                        className={classes.popover}
+                        classes={{
+                          paper: classes.paper1,
+                        }}
+                        open={popOpen}
+                        anchorEl={anchorEl}
+                        anchorOrigin={{
+                          vertical: 'bottom',
+                          horizontal: 'left',
+                        }}
+                        transformOrigin={{
+                          vertical: 'top',
+                          horizontal: 'left',
+                        }}
+                        onClose={handlePopoverClose}
+                        disableRestoreFocus
+                      >
+                        <Typography>{content.overview}</Typography>
+                      </Popover>
+                    </span>
                   </div>
 
 
@@ -244,9 +308,9 @@ export default function ContentModel({ children, media_type, id }) {
                     <span>)</span>
                   </div>
 
-                  <span className="ContentModal__description">
+                  {/* <span className="ContentModal__description">
                     {content.overview}
-                  </span>
+                  </span> */}
 
 
                   {/* <Button
@@ -261,6 +325,12 @@ export default function ContentModel({ children, media_type, id }) {
 
                   <ReactPlayer url={`https://www.youtube.com/watch?v=${video}`} controls={true} width="100%">
                   </ReactPlayer>
+
+                  <Comments media_type={media_type} id={id} name ={content.name || content.title}/>
+
+                  {/* <IconButton onClick={changeCommentFlag} color="primary" aria-label="Check Comments" component="span">
+                    <CommentIcon />&nbsp;Reviews
+                  </IconButton> */}
 
                   {/* <div>
                     <Carousel id={id} media_type={media_type} />

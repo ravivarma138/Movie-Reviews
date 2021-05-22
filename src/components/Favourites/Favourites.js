@@ -19,7 +19,7 @@ function Favourites() {
 
       for (let id in favourites) {
         console.log('id of userid is',id)
-        if (favourites[id].userId == localStorage.getItem('uid')) {
+        if (favourites[id].userId == fire.auth().currentUser.uid) {
           favFinalList.push({ id, ...favourites[id] });
         }
       }

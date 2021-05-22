@@ -56,7 +56,7 @@ export const SidebarData = [
     icon: <MdIcons.MdFavorite />
   },
   {
-    title: 'LogOut',
+    title: 'Log Out',
     path: '/logout',
     icon: <BiIcons.BiLogOut />
   },

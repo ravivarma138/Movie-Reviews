@@ -1,0 +1,17 @@
+.quillfooter {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    margin:0 auto;
+   padding:10px;
+   border:5px;
+   display:inline-block;
+   text-align:center;
+}
+
+.list {
+    position:'relative';
+    top:'95px';
+    height:'500px';
+    overflow:'auto';
+}
