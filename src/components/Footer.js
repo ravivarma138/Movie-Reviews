@@ -10,7 +10,7 @@ function Footer() {
     return (
         <div>
             <footer className="footer">
-  <label style={fontChange}>Copyright &copy; {date}, Rohit Peela</label>
+  <label style={fontChange}>Copyright &copy; {date}, Ravi Varma</label>
 </footer>
         </div>
     )
